@@ -5,7 +5,7 @@
 # ------import------------
 
 from tkinter import *
-from colors import *
+
 
 # ----variable------
 dx = 10
@@ -54,12 +54,12 @@ def display():
                 labels[line][col].config(bg=colors[game[line][col]],text="")
 
 
-# -------programe-principale----
+# ----------programe-principale------------
 # --l'écrant----
 window = Tk()
 window.geometry("800x800")
 window.config(bg="#141414")
-# -----titre et score-----
+# -----------titre et score-----------
 
 titleFrame = Frame(window)
 titleFrame.config(bg="#141414")
@@ -69,6 +69,7 @@ label_score = Label(titleFrame, text="Score:", fg="#008819")
 label_score.config(height=4, width=13, bg="#D9D9D9")
 label_score.pack(side="left", padx=50)
 
+
 label_best_score = Label(titleFrame, text="meilleur Score:", fg="#008819")
 label_best_score.config(height=4, width=13, bg="#D9D9D9")
 label_best_score.pack(side="left", padx=0)
@@ -76,7 +77,7 @@ label_best_score.pack(side="left", padx=0)
 label_title = Label(titleFrame, text="2048")
 label_title.config(bg="#141414", fg="white", font=("arial", 50,))
 label_title.pack(side="left", padx=100)
-# -------bouton------
+# ----------------bouton---------------
 quitbutton = Button(titleFrame, text="Quitter", command=window.quit)
 quitbutton.config(bg="#399626", fg="white", height=1, width=15, relief="flat")
 quitbutton.pack(pady=10)
@@ -84,15 +85,16 @@ quitbutton.pack(pady=10)
 replaybutton = Button(titleFrame, text="Rejouer")
 replaybutton.config(bg="#399626", fg="white", height=1, width=15, relief="flat")
 replaybutton.pack()
-# ------boucle for-----
+# -------------boucle for-----------------
 for line in range(len(game)):
     framejeux = Frame(window, bg="#444444")
     framejeux.pack()
+    #ici on crée la frame du font
 
     for col in range(len(game[line])):
         labels[line][col] = Label(framejeux, width=6, height=3,font=("Arial", 20))
         labels[line][col].pack(side="left", padx=dx, pady=dy)
-
+        #la on fais les label pour les tuile
 
 
 display()
