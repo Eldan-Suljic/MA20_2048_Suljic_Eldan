@@ -1,21 +1,21 @@
 # Name    : MA20_2048
 # Authors : Eldan Suljic
-# Date    : 12.02.2026
-# Version : 0.01
+# Date    : 05.03.2026
+# Version : 0.02
 # ------import------------
 
 from tkinter import *
-
+from core import *
 
 # ----variable------
 dx = 10
 dy = 10
-game = [[0, 0, 0, 0],
+game = [[2, 0, 0, 0],
         [0, 0, 2, 0],
         [0, 0, 0, 0],
         [2, 0, 0, 0]]
 
-game = [[0, 2, 4, 8],
+game2 = [[0, 2, 4, 8],
             [16, 32, 64, 128],
             [256, 512, 1024, 2048],
             [4096, 8192, 0, 0]]
@@ -49,9 +49,55 @@ def display():
     for line in range(len(game)):
         for col in range(len(game[line])):
             if game[line][col] > 0:
-                labels[line][col].config(bg=colors[game[line][col]],text=game[line][col],font=("Arial", 20),fg="white")
+                labels[line][col].config(bg=colors[game[line][col]],text=game[line][col],fg="white")
             else:
                 labels[line][col].config(bg=colors[game[line][col]],text="")
+#-----changement de la taile de la police------------
+            if game[line][col] > 100:
+                labels[line][col].config(font=("Arial", 20),width=6, height=3)
+            else:
+                labels[line][col].config(font=("Arial", 31),width=4, height=2)
+
+#----- dans chaque def on vas positioner les numero dans le bon sense ---
+#----- et on sort le nobre de mouvement pour voir si il y a du deplacement ou pas ---
+def down(event):
+    total_moves = 0
+    for col in range (4):
+        (game[3][col],game[2][col],game[1][col],game[0][col],nmove) = pack4(game[3][col],game[2][col],game[1][col],game[0][col])
+        total_moves += nmove
+    print(total_moves)
+    display()
+
+
+def left(event):
+    total_moves = 0
+    for line in range (4):
+        (game[line][0],game[line][1],game[line][2],game[line][3],nmove) =pack4(game[line][0],game[line][1],game[line][2],game[line][3])
+        total_moves += nmove
+    print(total_moves)
+    display()
+
+def right(event):
+    total_moves = 0
+    for line in range (4):
+        (game[line][3],game[line][2],game[line][1],game[line][0],nmove) =pack4(game[line][3],game[line][2],game[line][1],game[line][0])
+        total_moves += nmove
+    print(total_moves)
+    display()
+
+
+def up(event):
+    total_moves = 0
+    for col in range (4):
+        (game[0][col],game[1][col],game[2][col],game[3][col],nmove) =pack4(game[0][col],game[1][col],game[2][col],game[3][col])
+        total_moves += nmove
+    print(total_moves)
+    display()
+
+
+
+
+
 
 
 # ----------programe-principale------------
@@ -86,16 +132,26 @@ replaybutton = Button(titleFrame, text="Rejouer")
 replaybutton.config(bg="#399626", fg="white", height=1, width=15, relief="flat")
 replaybutton.pack()
 # -------------boucle for-----------------
+# ici on crée la frame du font
+frameglobal = Frame(window, bg="#444444")
+frameglobal.pack(side="left", padx=100)
 for line in range(len(game)):
-    framejeux = Frame(window, bg="#444444")
+    framejeux = Frame(frameglobal, bg="#444444")
     framejeux.pack()
-    #ici on crée la frame du font
 
+    # la on fais les label pour les tuile
     for col in range(len(game[line])):
-        labels[line][col] = Label(framejeux, width=6, height=3,font=("Arial", 20))
+        labels[line][col] = Label(framejeux, width=4, height=2,font=("Arial", 30))
         labels[line][col].pack(side="left", padx=dx, pady=dy)
-        #la on fais les label pour les tuile
-
+# les touche son defini ici
+window.bind("<Left>",left)
+window.bind("<Right>",right)
+window.bind("<Up>",up)
+window.bind("<Down>",down)
+window.bind("w",up)
+window.bind("s",down)
+window.bind("a",left)
+window.bind("d",right)
 
 display()
 window.mainloop()
