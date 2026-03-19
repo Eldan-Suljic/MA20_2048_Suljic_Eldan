@@ -1,6 +1,11 @@
+# Name    : MA20_2048
+# Authors : Eldan Suljic
+# Date    : 05.03.2026
+# Version : 0.02
 
-
-
+#--------------fonction---------------
+#--------fonction pack 4-------------
+#le def ici sere a fusioner et a deplacet les case sur le terminal de droite a gauche
 def pack4(a,b,c,d):
 #---partie ou on enleve les 0---
     nmove=0
@@ -32,10 +37,6 @@ def pack4(a,b,c,d):
         c,d=2*c,0
         nmove +=   1
     return (a,b,c,d,nmove)
-
-
-
-
 
 
 #------ zone de test -------
